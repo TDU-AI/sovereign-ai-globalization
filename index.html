@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chiến Lược Trí Tuệ Nhân Tạo Có Chủ Quyền Trong Trật Tự Toàn Cầu Mới | Chuyên Đề MBA</title>
+  <meta name="description" content="Chuyên đề Thạc sĩ Quản trị Kinh doanh (MBA) môn Toàn cầu hóa: Chiến lược Trí tuệ nhân tạo có chủ quyền từ mô hình mã nguồn mở DeepSeek và vị thế của Việt Nam.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0a2540;
+      --primary-dark: #06182c;
+      --primary-light: #183b63;
+      --accent: #b45309;
+      --accent-light: #fef3c7;
+      --accent-blue: #2563eb;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --border-focus: #cbd5e1;
+      --tag-bg: #f1f5f9;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+      --shadow-lg: 0 12px 28px rgba(0,0,0,0.08);
+      --font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-size-base: 17px;
+    }
+
+    [data-theme="dark"] {
+      --primary: #1e293b;
+      --primary-dark: #0f172a;
+      --primary-light: #334155;
+      --accent: #f59e0b;
+      --accent-light: rgba(245, 158, 11, 0.15);
+      --accent-blue: #60a5fa;
+      --bg: #0b1120;
+      --surface: #131d31;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #22324e;
+      --border-focus: #334155;
+      --tag-bg: #1e293b;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
+      --shadow-lg: 0 12px 28px rgba(0,0,0,0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      font-size: var(--font-size-base);
+      line-height: 1.85;
+      color: var(--text-main);
+      background-color: var(--bg);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Reading Progress Bar */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #2563eb, #b45309);
+      width: 0%;
+      z-index: 9999;
+      transition: width 0.1s;
+    }
+
+    /* Fixed Top Navbar */
+    .top-navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      transition: background-color 0.3s ease;
+    }
+    [data-theme="dark"] .top-navbar {
+      background: rgba(19, 29, 49, 0.94);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-brand img {
+      height: 38px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-action {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-action:hover {
+      background: var(--border);
+      border-color: var(--border-focus);
+    }
+
+    /* Main Layout */
+    .page-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px 80px 24px;
+      display: grid;
+      grid-template-columns: 290px minmax(0, 1fr);
+      gap: 48px;
+      position: relative;
+    }
+
+    /* Sidebar Navigation */
+    .sidebar-toc {
+      position: sticky;
+      top: 80px;
+      height: fit-content;
+      max-height: calc(100vh - 100px);
+      overflow-y: auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .toc-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .toc-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      line-height: 1.45;
+      padding: 6px 10px;
+      border-radius: 6px;
+      display: block;
+      transition: all 0.15s ease;
+    }
+
+    .toc-link:hover, .toc-link.active {
+      color: var(--primary-light);
+      background: var(--tag-bg);
+      font-weight: 600;
+      padding-left: 14px;
+    }
+    [data-theme="dark"] .toc-link:hover, [data-theme="dark"] .toc-link.active {
+      color: var(--accent);
+    }
+
+    .toc-sub {
+      padding-left: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 4px;
+    }
+    .toc-sub .toc-link {
+      font-size: 0.82rem;
+    }
+
+    /* Article Content */
+    .article-container {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 48px 56px;
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Header Banner */
+    .institutional-header {
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 28px;
+      margin-bottom: 36px;
+    }
+
+    .academic-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 5px 12px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+    }
+
+    .main-title {
+      font-size: 2.25rem;
+      font-weight: 800;
+      line-height: 1.28;
+      color: var(--primary);
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+    }
+    [data-theme="dark"] .main-title {
+      color: #ffffff;
+    }
+
+    .main-subtitle {
+      font-size: 1.25rem;
+      font-weight: 500;
+      line-height: 1.5;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    /* Meta Info Card */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 22px;
+      font-size: 0.9rem;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .meta-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .meta-value {
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    /* Typography & Sections */
+    h2.section-title {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-top: 48px;
+      margin-bottom: 20px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      letter-spacing: -0.01em;
+    }
+    [data-theme="dark"] h2.section-title {
+      color: #93c5fd;
+    }
+
+    h3.subsection-title {
+      font-size: 1.22rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-top: 28px;
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+
+    p {
+      margin-bottom: 18px;
+      text-align: justify;
+      hyphens: auto;
+    }
+
+    p.lead-paragraph {
+      font-size: 1.12rem;
+      font-weight: 400;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    /* Infographic & Diagram Cards */
+    .diagram-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--accent-blue);
+      border-radius: 14px;
+      padding: 24px;
+      margin: 32px 0;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .diagram-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .diagram-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-blue);
+    }
+
+    .diagram-badge {
+      font-size: 0.72rem;
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* Comparison Table */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.92rem;
+      background: var(--surface);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .custom-table th {
+      background: var(--primary);
+      color: #ffffff;
+      padding: 14px 18px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.02em;
+    }
+    [data-theme="dark"] .custom-table th {
+      background: var(--primary-light);
+    }
+
+    .custom-table td {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.65;
+    }
+
+    .custom-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .custom-table tr:nth-child(even) td {
+      background: var(--tag-bg);
+    }
+
+    /* Grid Frameworks (CAGE & Tiered Pyramids) */
+    .framework-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin: 24px 0;
+    }
+
+    .framework-box {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .framework-box-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    [data-theme="dark"] .framework-box-title {
+      color: #93c5fd;
+    }
+
+    .framework-box ul {
+      padding-left: 18px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Tiered Autonomy Stack */
+    .tier-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 24px 0;
+    }
+
+    .tier-item {
+      padding: 18px 22px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--tag-bg);
+      position: relative;
+    }
+
+    .tier-item.tier-4 { border-left: 6px solid #10b981; }
+    .tier-item.tier-3 { border-left: 6px solid #3b82f6; }
+    .tier-item.tier-2 { border-left: 6px solid #f59e0b; }
+    .tier-item.tier-1 { border-left: 6px solid #ef4444; }
+
+    .tier-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .tier-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+
+    .tier-scope {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .tier-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* Quotes & Callouts */
+    .highlight-callout {
+      background: var(--accent-light);
+      border-left: 4px solid var(--accent);
+      padding: 18px 22px;
+      border-radius: 0 10px 10px 0;
+      margin: 24px 0;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--text-main);
+    }
+    [data-theme="dark"] .highlight-callout {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: var(--accent);
+    }
+
+    /* Reference List */
+    .reference-list {
+      padding-left: 20px;
+      margin-top: 14px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .reference-list li {
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    /* Back to Top Floating Button */
+    #back-to-top {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      box-shadow: var(--shadow-md);
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      z-index: 100;
+      transition: all 0.2s ease;
+    }
+    #back-to-top:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .page-wrapper {
+        grid-template-columns: 1fr;
+        padding: 20px 16px;
+      }
+      .sidebar-toc {
+        display: none;
+      }
+      .article-container {
+        padding: 28px 20px;
+      }
+      .main-title {
+        font-size: 1.75rem;
+      }
+      .framework-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background: white !important;
+        color: black !important;
+        font-size: 12pt;
+        line-height: 1.6;
+      }
+      .top-navbar, .sidebar-toc, #progress-bar, #back-to-top, .btn-action {
+        display: none !important;
+      }
+      .page-wrapper {
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: block !important;
+      }
+      .article-container {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+      }
+      h2.section-title {
+        page-break-before: always;
+      }
+      .custom-table, .diagram-card, .tier-stack {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="progress-bar"></div>
+
+  <!-- Top Navigation -->
+  <header class="top-navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-brand">
+        <img src="tdu-logo.png" alt="TDU AI Center Logo" onerror="this.style.display='none'">
+        <span>TDU AI Center &bull; MBA Research</span>
+      </a>
+      <div class="nav-actions">
+        <button class="btn-action" id="btn-font-toggle" title="Thay đổi cỡ chữ">
+          <span style="font-size: 0.8rem">A</span><span style="font-weight: 800">A</span>
+        </button>
+        <button class="btn-action" id="btn-theme-toggle" title="Chế độ Sáng / Tối">
+          <span id="theme-icon">&#9790;</span>
+        </button>
+        <button class="btn-action" onclick="window.print()" title="In hoặc lưu PDF">
+          <span>&#128438;</span> In / PDF
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Layout Container -->
+  <div class="page-wrapper">
+    
+    <!-- Sticky Sidebar Table of Contents -->
+    <aside class="sidebar-toc">
+      <div class="toc-title">Nội Dung Chuyên Đề</div>
+      <nav>
+        <ul class="toc-list">
+          <li><a href="#intro" class="toc-link">Lời Mở Đầu</a></li>
+          <li>
+            <a href="#part-1" class="toc-link">Phần 1: Toàn Cầu Hóa &amp; Chủ Quyền Số</a>
+            <div class="toc-sub">
+              <a href="#part-1-1" class="toc-link">Chủ nghĩa dân tộc công nghệ</a>
+              <a href="#part-1-2" class="toc-link">Chuỗi giá trị toàn cầu</a>
+              <a href="#part-1-3" class="toc-link">Lợi thế người đi sau</a>
+            </div>
+          </li>
+          <li>
+            <a href="#part-2" class="toc-link">Phần 2: Cục Diện Toàn Cầu &amp; DeepSeek</a>
+            <div class="toc-sub">
+              <a href="#part-2-1" class="toc-link">Thế độc quyền nhóm</a>
+              <a href="#part-2-2" class="toc-link">Hiện tượng DeepSeek</a>
+              <a href="#part-2-3" class="toc-link">Bài học kinh nghiệm quốc tế</a>
+            </div>
+          </li>
+          <li>
+            <a href="#part-3" class="toc-link">Phần 3: Bài Toán Tự Chủ Của Việt Nam</a>
+            <div class="toc-sub">
+              <a href="#part-3-1" class="toc-link">Khung khoảng cách toàn cầu</a>
+              <a href="#part-3-2" class="toc-link">Giá trị tự chủ đạt được</a>
+              <a href="#part-3-3" class="toc-link">Giới hạn &amp; Lệ thuộc tiềm ẩn</a>
+            </div>
+          </li>
+          <li>
+            <a href="#part-4" class="toc-link">Phần 4: Hàm Ý Quản Trị &amp; Định Vị</a>
+            <div class="toc-sub">
+              <a href="#part-4-1" class="toc-link">Chiến lược tự chủ phân tầng</a>
+              <a href="#part-4-2" class="toc-link">Ngoại giao công nghệ</a>
+              <a href="#part-4-3" class="toc-link">Vai trò Viện - Trường</a>
+            </div>
+          </li>
+          <li><a href="#conclusion" class="toc-link">Kết Luận</a></li>
+          <li><a href="#references" class="toc-link">Tài Liệu Tham Khảo</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Academic Article -->
+    <main class="article-container">
+      
+      <!-- Institutional Header -->
+      <header class="institutional-header">
+        <div class="academic-kicker">Chuyên Đề Thạc Sĩ Quản Trị Kinh Doanh (MBA) &bull; Toàn Cầu Hóa</div>
+        <h1 class="main-title">Chiến Lược Trí Tuệ Nhân Tạo Có Chủ Quyền Trong Trật Tự Toàn Cầu Mới</h1>
+        <p class="main-subtitle">Tiếp Cận Từ Mô Hình Mã Nguồn Mở DeepSeek Và Vị Thế Chiến Lược Của Việt Nam</p>
+        
+        <div class="meta-grid">
+          <div class="meta-item">
+            <span class="meta-label">Đơn vị công tác</span>
+            <span class="meta-value">Trung tâm Ứng dụng Trí tuệ Nhân tạo</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Cơ sở đào tạo</span>
+            <span class="meta-value">Trường Đại học Tây Đô (TDU)</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Học phần</span>
+            <span class="meta-value">Toàn Cầu Hóa (Globalization)</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Giảng viên hướng dẫn</span>
+            <span class="meta-value">TS. Trần Thị Thanh Hồng</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Section: Lời Mở Đầu -->
+      <section id="intro">
+        <h2 class="section-title"><span>I.</span> Lời Mở Đầu</h2>
+        <p class="lead-paragraph">
+          Trong hơn ba thập kỷ qua, toàn cầu hóa được định hình bởi sự luân chuyển tự do của dòng vốn, thương mại và tri thức xuyên biên giới dựa trên niềm tin vào một thế giới phẳng. Tuy nhiên, sự bùng nổ của trí tuệ nhân tạo tạo sinh cùng các mô hình ngôn ngữ lớn đang làm thay đổi căn bản cấu trúc này. Trí tuệ nhân tạo không còn đơn thuần là một công cụ công nghệ hay một sản phẩm thương mại của các doanh nghiệp tư nhân, mà đã trở thành năng lực chiến lược quốc gia, tác động trực tiếp đến an ninh kinh tế, chủ quyền dữ liệu và bản sắc văn hóa.
+        </p>
+        <p>
+          Đi liền với bước chuyển này là sự trỗi dậy của chủ nghĩa dân tộc công nghệ và sự phân mảnh của không gian số toàn cầu. Các siêu cường như Hoa Kỳ và Trung Quốc đang đẩy mạnh kiểm soát các mắt xích trọng yếu của chuỗi giá trị trí tuệ nhân tạo thông qua lệnh cấm vận phần cứng, kiểm soát xuất khẩu và bao bọc các mô hình đóng độc quyền. Đứng trước tình thế đó, các quốc gia đang phát triển như Việt Nam đối diện với một nghịch lý lớn: nếu chỉ đơn thuần nhập khẩu và ứng dụng các mô hình thương mại từ nước ngoài, quốc gia sẽ có nguy cơ rơi vào trạng thái lệ thuộc công nghệ toàn diện; ngược lại, việc đầu tư hàng trăm triệu đô la để tự xây dựng một mô hình nền tảng từ con số không lại là bài toán bất khả thi về mặt nguồn lực tài chính lẫn hạ tầng kỹ thuật.
+        </p>
+        <p>
+          Sự xuất hiện của hiện tượng DeepSeek với chiến lược công bố trọng số mở đã tạo ra một biến số bất ngờ, làm rung chuyển cấu trúc độc quyền công nghệ thế giới. Sự kiện này mở ra một câu hỏi mang tính chiến lược cho các nhà quản trị và các nhà hoạch định chính sách: <em>Liệu việc tiếp nhận và tinh chỉnh các mô hình mã nguồn mở tiên tiến có thể trở thành con đường giúp Việt Nam đạt được quyền tự chủ thực chất trong lĩnh vực trí tuệ nhân tạo hay không?</em> Chuyên đề này phân tích bài toán tự chủ công nghệ của Việt Nam từ lăng kính toàn cầu hóa, thông qua việc nghiên cứu hiện tượng DeepSeek, nhằm đề xuất một lộ trình chiến lược thực tế và bền vững cho quốc gia.
+        </p>
+      </section>
+
+      <!-- Section: Phần 1 -->
+      <section id="part-1">
+        <h2 class="section-title"><span>II.</span> Cơ Sở Lý Luận Về Toàn Cầu Hóa, Địa Chính Trị Và Chủ Quyền Số</h2>
+        
+        <h3 class="subsection-title" id="part-1-1">1. Sự phân cực của trật tự toàn cầu và chủ nghĩa dân tộc công nghệ</h3>
+        <p>
+          Trong lý thuyết kinh tế chính trị quốc tế đương đại, toàn cầu hóa không còn diễn ra theo chiều hướng hội tụ một chiều. Thế giới đang chứng kiến sự chuyển dịch rõ rệt từ toàn cầu hóa mở sang giai đoạn phân mảnh công nghệ sâu sắc. Công nghệ thông tin và trí tuệ nhân tạo, thay vì kết nối thế giới thành một mạng lưới phẳng, đang bị chia cắt thành các hệ sinh thái cạnh tranh chiến lược.
+        </p>
+        <p>
+          Khái niệm chủ nghĩa dân tộc công nghệ mô tả việc các quốc gia coi công nghệ cao là công cụ địa chính trị tối cao để duy trì vị thế thống trị hoặc bảo vệ an ninh biên giới mềm. Việc kiểm soát các thuật toán trí tuệ nhân tạo cùng hạ tầng dữ liệu giờ đây được xem xét tương đương với việc kiểm soát các tuyến hàng hải huyết mạch hay tài nguyên năng lượng truyền thống. Khi công nghệ bị vũ khí hóa thông qua các rào cản hành chính và lệnh trừng phạt kinh tế, nguyên lý phân công lao động quốc tế tự do bị lung lay, buộc mọi quốc gia phải tái định vị chiến lược tự cường của mình.
+        </p>
+
+        <h3 class="subsection-title" id="part-1-2">2. Lý thuyết chuỗi giá trị toàn cầu và nguy cơ lệ thuộc công nghệ mới</h3>
+        <p>
+          Theo lý thuyết hệ thống thế giới của Immanuel Wallerstein, trật tự kinh tế toàn cầu luôn được phân cấp thành các khu vực trung tâm và khu vực ngoại vi. Khi áp dụng vào chuỗi giá trị toàn cầu của ngành trí tuệ nhân tạo, cấu trúc phân tầng này thể hiện vô cùng sắc nét:
+        </p>
+        
+        <!-- Diagram: GVC AI -->
+        <div class="diagram-card">
+          <div class="diagram-header">
+            <span class="diagram-title">Mô hình phân tầng chuỗi giá trị trí tuệ nhân tạo toàn cầu</span>
+            <span class="diagram-badge">Lý thuyết Wallerstein</span>
+          </div>
+          <div class="tier-stack">
+            <div class="tier-item tier-1">
+              <div class="tier-head">
+                <span class="tier-name">Nhóm Trung Tâm (Hoa Kỳ, Trung Quốc)</span>
+                <span class="tier-scope">Kiểm soát giá trị cốt lõi</span>
+              </div>
+              <div class="tier-desc">Sở hữu bản quyền kiến trúc mô hình nền tảng, thiết kế chip bán dẫn tiên tiến và vận hành mạng lưới trung tâm dữ liệu khổng lồ.</div>
+            </div>
+            <div class="tier-item tier-2">
+              <div class="tier-head">
+                <span class="tier-name">Nhóm Bán Ngoại Vi (Châu Âu, Nhật Bản, các nước vùng Vịnh)</span>
+                <span class="tier-scope">Điều tiết &amp; Đầu tư lớn</span>
+              </div>
+              <div class="tier-desc">Thiết lập các khung khổ thể chế quản trị an toàn số, đầu tư mạnh vào mô hình bản địa và sở hữu hạ tầng đám mây khu vực.</div>
+            </div>
+            <div class="tier-item tier-3">
+              <div class="tier-head">
+                <span class="tier-name">Nhóm Ngoại Vi (Các nền kinh tế đang phát triển, bao gồm Việt Nam)</span>
+                <span class="tier-scope">Tiêu thụ &amp; Gia công</span>
+              </div>
+              <div class="tier-desc">Chủ yếu đóng vai trò cung cấp dữ liệu thô, lao động gắn nhãn giá rẻ và thị trường tiêu thụ các dịch vụ phần mềm đã đóng gói sẵn.</div>
+            </div>
+          </div>
+        </div>
+
+        <p>
+          Nếu không có một chiến lược rõ ràng, các nước đi sau sẽ rơi vào cái bẫy lệ thuộc công nghệ mới: toàn bộ dữ liệu người dùng và tri thức vận hành nội địa bị khai thác để nuôi dưỡng các mô hình trí tuệ nhân tạo của các tập đoàn đa quốc gia, sau đó quốc gia lại phải bỏ tiền thuê lại chính dịch vụ thông minh được sinh ra từ các mô hình đó, trong khi hoàn toàn mất quyền kiểm soát đối với thuật toán và dữ liệu của chính mình.
+        </p>
+
+        <h3 class="subsection-title" id="part-1-3">3. Trí tuệ nhân tạo có chủ quyền và lợi thế của quốc gia đi sau</h3>
+        <p>
+          Khái niệm trí tuệ nhân tạo có chủ quyền xuất hiện nhằm phản ứng lại nguy cơ lệ thuộc kể trên. Đây là khả năng của một quốc gia trong việc tự xây dựng, huấn luyện và kiểm soát công nghệ trí tuệ nhân tạo dựa trên dữ liệu, văn hóa, thể chế và hạ tầng của chính mình, không để các thực thể nước ngoài chi phối các quyết định cốt lõi.
+        </p>
+        <p>
+          Tuy nhiên, việc theo đuổi mục tiêu này ở các nước đang phát triển cần dựa trên lý thuyết về lợi thế của người đi sau của nhà kinh tế học Alexander Gerschenkron. Lý thuyết này chỉ ra rằng các quốc gia công nghiệp hóa muộn không nhất thiết phải lặp lại từng bước nghiên cứu tốn kém mà các nước đi trước đã trải qua. Thay vào đó, họ có thể tận dụng sự khuếch tán tri thức toàn cầu, tiếp nhận các thành tựu mở tiên tiến nhất để đốt cháy giai đoạn, tập trung nguồn lực hạn chế vào khâu thích ứng và ứng dụng chuyên sâu. Đây chính là điểm tựa lý luận để xem xét cách tiếp cận mô hình mã nguồn mở.
+        </p>
+      </section>
+
+      <!-- Section: Phần 2 -->
+      <section id="part-2">
+        <h2 class="section-title"><span>III.</span> Cục Diện Toàn Cầu Của Ngành Trí Tuệ Nhân Tạo Và Hiện Tượng DeepSeek</h2>
+        
+        <h3 class="subsection-title" id="part-2-1">1. Thế độc quyền nhóm và sự kiểm soát chuỗi cung ứng quốc tế</h3>
+        <p>
+          Trước năm 2025, cuộc đua trí tuệ nhân tạo toàn cầu bị chi phối tuyệt đối bởi một số ít tập đoàn công nghệ khổng lồ của phương Tây. Các doanh nghiệp này vận hành theo mô hình đóng độc quyền: họ giữ kín trọng số mô hình, cung cấp dịch vụ thông qua giao diện lập trình ứng dụng trả phí, và liên tục gia tăng quy mô tính toán nhằm dựng lên các rào cản gia nhập thị trường.
+        </p>
+        <p>
+          Sự thống trị này được củng cố bởi thế độc quyền trong chuỗi cung ứng vật lý. Toàn bộ năng lực tính toán toàn cầu phụ thuộc chặt chẽ vào một mắt xích mỏng manh: các thiết kế vi xử lý đồ họa của một vài công ty Hoa Kỳ, máy quang khắc siêu cực tím từ Hà Lan, và các nhà máy đúc vi mạch tại Đài Loan. Các biện pháp kiểm soát xuất khẩu ngặt nghèo được ban hành nhằm ngăn cản các quốc gia khác tiếp cận phần cứng cao cấp, biến năng lực tính toán thành một thứ vũ khí địa chính trị sắc bén.
+        </p>
+
+        <h3 class="subsection-title" id="part-2-2">2. DeepSeek: Sự phá vỡ trật tự công nghệ từ cách tiếp cận mở</h3>
+        <p>
+          Trong bối cảnh chịu sức ép nặng nề từ các lệnh hạn chế phần cứng, sự xuất hiện của DeepSeek đã tạo ra một bước ngoặt địa chính trị công nghệ sâu sắc. Bằng cách tối ưu hóa triệt để kiến trúc thuật toán, DeepSeek chứng minh rằng một thực thể công nghệ có thể đạt được năng lực tính toán và suy luận tương đương các mô hình hàng đầu thế giới với chi phí huấn luyện chỉ bằng một phần rất nhỏ, đồng thời vận hành trên các hệ thống phần cứng không phải là tối tân nhất.
+        </p>
+        <p>
+          Quan trọng hơn từ góc độ toàn cầu hóa, việc DeepSeek công bố mở toàn bộ trọng số mô hình cùng các báo cáo kỹ thuật minh bạch đã biến tri thức độc quyền trở thành một dạng hàng hóa công toàn cầu. Động thái này làm suy giảm đáng kể sức mạnh độc quyền của các tập đoàn công nghệ phương Tây, đồng thời mở toang cánh cửa tiếp cận công nghệ cao cho các quốc gia có nguồn lực kinh tế hạn chế.
+        </p>
+
+        <!-- Table: Comparison -->
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th style="width: 50%;">Mô Hình Đóng Thương Mại (Big Tech)</th>
+              <th style="width: 50%;">Mô Hình Mã Nguồn Mở (DeepSeek, Llama...)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Dữ liệu người dùng bắt buộc phải truyền qua các trung tâm dữ liệu đặt tại nước ngoài thông qua kết nối đám mây công cộng.</td>
+              <td>Có thể tải toàn bộ trọng số về để vận hành độc lập trên máy chủ nội địa, bảo đảm tuyệt đối chủ quyền dữ liệu.</td>
+            </tr>
+            <tr>
+              <td>Chi phí dịch vụ tính theo lưu lượng sử dụng và ngoại tệ, phụ thuộc hoàn toàn vào chính sách kinh doanh của nhà cung cấp.</td>
+              <td>Chi phí ban đầu tối ưu, cho phép các tổ chức chủ động hoạch định ngân sách triển khai dài hạn.</td>
+            </tr>
+            <tr>
+              <td>Quy chuẩn ứng xử và định kiến nhận thức bị áp đặt bởi văn hóa và hệ tư tưởng của nơi phát triển gốc.</td>
+              <td>Toàn quyền can thiệp vào tầng căn chỉnh để thích ứng với chuẩn mực văn hóa, lịch sử và đạo đức bản địa.</td>
+            </tr>
+            <tr>
+              <td>Đối mặt với nguy cơ bị ngắt kết nối dịch vụ khi xảy ra các xung đột hoặc cấm vận địa chính trị bất ngờ.</td>
+              <td>Tính ổn định cao; sau khi đã lưu trữ trọng số nội bộ thì không thể bị đơn phương vô hiệu hóa từ bên ngoài.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 class="subsection-title" id="part-2-3">3. Các bài học kinh nghiệm quốc tế về việc theo đuổi quyền tự chủ số</h3>
+        <p>
+          Trước áp lực của các tập đoàn công nghệ lớn, nhiều khu vực trên thế giới đã triển khai các chiến lược tự chủ với các cách tiếp cận khác nhau:
+        </p>
+        <p>
+          <strong>Châu Âu:</strong> Tiếp cận chủ yếu qua công cụ thể chế và luật pháp. Đạo luật Trí tuệ nhân tạo của Liên minh châu Âu đặt ra các tiêu chuẩn nghiêm ngặt về tính minh bạch, quyền riêng tư và an toàn dữ liệu nhằm hạn chế sự bành trướng của các công ty công nghệ ngoại quốc, đồng thời bảo trợ cho các dự án mô hình mở bản địa nhằm giảm dần sự phụ thuộc vào Hoa Kỳ.
+        </p>
+        <p>
+          <strong>Các quốc gia vùng Vịnh:</strong> Tiếp cận thông qua nguồn lực tài chính vượt trội. Các nước như Các Tiểu vương quốc Ả Rập Thống nhất đã tận dụng nguồn vốn dồi dào từ dầu mỏ để mua sắm phần cứng quy mô lớn, thuê các chuyên gia công nghệ hàng đầu thế giới để xây dựng các mô hình mở mang bản sắc Ả Rập, định vị mình thành trung tâm công nghệ mới trên bản đồ toàn cầu.
+        </p>
+        <p>
+          Những kinh nghiệm này cho thấy: các quốc gia không nằm trong nhóm siêu cường đều không lựa chọn con đường tự cô lập, mà tìm cách kết hợp nguồn lực quốc gia với dòng chảy tri thức mở quốc tế để bảo vệ vị thế chiến lược của mình.
+        </p>
+      </section>
+
+      <!-- Section: Phần 3 -->
+      <section id="part-3">
+        <h2 class="section-title"><span>IV.</span> Bài Toán Tự Chủ Của Việt Nam Từ Lăng Kính Toàn Cầu Hóa</h2>
+        
+        <h3 class="subsection-title" id="part-3-1">1. Phân tích bối cảnh Việt Nam qua khung khoảng cách toàn cầu</h3>
+        <p>
+          Để đánh giá mức độ thích ứng của Việt Nam khi tiếp nhận một công nghệ toàn cầu, việc sử dụng khung phân tích khoảng cách của giáo sư Pankaj Ghemawat giúp làm rõ bốn chiều kích rào cản thực tế:
+        </p>
+
+        <!-- Framework Grid: CAGE -->
+        <div class="framework-grid">
+          <div class="framework-box">
+            <div class="framework-box-title">
+              <span>&#127757;</span> Khoảng Cách Văn Hóa (Cultural)
+            </div>
+            <ul>
+              <li>Tiếng Việt có cấu trúc ngữ nghĩa ngữ cảnh sâu sắc, dễ bị hiểu sai lệch trong các mô hình toàn cầu.</li>
+              <li>Mô hình nước ngoài mang nặng định kiến văn hóa, xã hội và quan điểm lịch sử của quốc gia sáng lập.</li>
+              <li>Nguy cơ xói mòn bản sắc nếu các thế hệ trẻ tiếp nhận tri thức qua lăng kính thông tin bị chi phối từ bên ngoài.</li>
+            </ul>
+          </div>
+          <div class="framework-box">
+            <div class="framework-box-title">
+              <span>&#9878;</span> Khoảng Cách Thể Chế (Administrative)
+            </div>
+            <ul>
+              <li>Khung pháp lý quốc gia yêu cầu dữ liệu trọng yếu, y tế, hành chính công phải lưu trữ trong nước.</li>
+              <li>Luật An ninh mạng và các nghị định về bảo vệ dữ liệu cá nhân giới hạn việc chuyển dữ liệu xuyên biên giới.</li>
+              <li>Yêu cầu bắt buộc về tính giải trình và kiểm soát thông tin đối với hệ thống dịch vụ công ích.</li>
+            </ul>
+          </div>
+          <div class="framework-box">
+            <div class="framework-box-title">
+              <span>&#128506;</span> Khoảng Cách Địa Lý (Geographic)
+            </div>
+            <ul>
+              <li>Độ trễ truyền dẫn vật lý xuyên biên giới ảnh hưởng đến các ứng dụng điều hành thời gian thực.</li>
+              <li>Sự cố đứt cáp quang biển quốc tế thường xuyên đe dọa sự liên tục của các dịch vụ đám mây ngoại quốc.</li>
+              <li>Sự cấp thiết của việc xây dựng các cụm xử lý dữ liệu đặt ngay tại các trung tâm kinh tế nội địa.</li>
+            </ul>
+          </div>
+          <div class="framework-box">
+            <div class="framework-box-title">
+              <span>&#128178;</span> Khoảng Cách Kinh Tế (Economic)
+            </div>
+            <ul>
+              <li>Ngân sách nhà nước và doanh nghiệp không thể kham nổi các dự án huấn luyện từ đầu hàng trăm triệu đô la.</li>
+              <li>Chi phí thuê bao dịch vụ bằng ngoại tệ gây áp lực tài chính dài hạn lên các tổ chức trong nước.</li>
+              <li>Nhu cầu bức thiết về một giải pháp chi phí thấp để đẩy nhanh quá trình nâng cao năng suất lao động.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="subsection-title" id="part-3-2">2. Tinh chỉnh mô hình mở: Những giá trị tự chủ thực chất đạt được</h3>
+        <p>
+          Từ các phân tích trên, lựa chọn tiếp nhận và tinh chỉnh mô hình mã nguồn mở như DeepSeek mang lại cho Việt Nam ba lợi ích tự chủ mang tính chiến lược:
+        </p>
+        <p>
+          <strong>Chủ quyền dữ liệu và an ninh quốc gia:</strong> Bằng việc tải toàn bộ trọng số của mô hình về và triển khai trên các trung tâm dữ liệu nội địa của các doanh nghiệp viễn thông hoặc trường đại học, toàn bộ quá trình xử lý thông tin được khép kín trong không gian nội địa. Điều này bảo vệ an toàn cho các cơ sở dữ liệu quốc gia và bí mật thương mại của doanh nghiệp.
+        </p>
+        <p>
+          <strong>Bản địa hóa nhận thức và bảo tồn văn hóa:</strong> Quá trình tinh chỉnh cho phép loại bỏ các thiên kiến sai lệch, đồng thời huấn luyện mô hình nắm vững hệ thống pháp luật, chuẩn mực đạo đức, phong tục tập quán và tư duy tri thức của người Việt. Đây là biện pháp phòng thủ văn hóa cần thiết trong kỷ nguyên toàn cầu hóa số.
+        </p>
+        <p>
+          <strong>Tối ưu hóa nguồn lực kinh tế của người đi sau:</strong> Tinh chỉnh mô hình chỉ đòi hỏi một lượng tài nguyên tính toán và chi phí khiêm tốn so với việc huấn luyện từ đầu. Phương thức này cho phép Việt Nam đi tắt đón đầu, nhanh chóng tạo ra các giải pháp trí tuệ nhân tạo chuyên ngành có hiệu năng cao phục vụ chuyển đổi số quốc gia mà không làm kiệt quệ nguồn lực tài chính.
+        </p>
+
+        <h3 class="subsection-title" id="part-3-3">3. Phân tích phản biện: Những giới hạn và rủi ro lệ thuộc tiềm ẩn</h3>
+        <p>
+          Mặc dù mang lại nhiều lợi thế, nếu cho rằng việc tinh chỉnh mô hình mở đồng nghĩa với việc đã đạt được sự tự chủ hoàn toàn thì đó là một nhận thức sai lầm và thiếu chiều sâu chiến lược. Cần thẳng thắn chỉ ra những điểm nghẽn toàn cầu mà Việt Nam chưa thể tự chủ:
+        </p>
+        <div class="highlight-callout">
+          &ldquo;Tự chủ công nghệ trên phần mềm mở không thể che lấp sự lệ thuộc vào hạ tầng phần cứng toàn cầu. Nếu không nhận thức đúng điểm nghẽn này, một quốc gia rất dễ rơi từ trạng thái lệ thuộc vào các nền tảng đóng sang trạng thái nghiện thụ động vào các nguồn cung mở.&rdquo;
+        </div>
+        <p>
+          <strong>Sự phụ thuộc vào chuỗi cung ứng vật lý toàn cầu:</strong> Dù làm chủ phần mềm và dữ liệu, toàn bộ hệ thống tính toán phục vụ tinh chỉnh và vận hành vẫn phải chạy trên các vi xử lý nhập khẩu hoàn toàn từ nước ngoài. Nếu chuỗi cung ứng phần cứng bị đứt gãy do các xung đột địa chính trị khu vực, năng lực tự chủ phần mềm sẽ lập tức bị vô hiệu hóa.
+        </p>
+        <p>
+          <strong>Chiếc bẫy mắc kẹt ở tầng giữa:</strong> Do không tự thực hiện khâu huấn luyện nền tảng, các kỹ sư trong nước khó có thể nắm bắt và can thiệp hoàn toàn vào tầng sâu nhất của mạng nơ-ron. Những định kiến nhận thức ăn sâu trong trọng số cốt lõi từ quá trình học dữ liệu ban đầu rất khó bị tẩy sạch hoàn toàn chỉ bằng các bước tinh chỉnh bề mặt.
+        </p>
+        <p>
+          <strong>Rủi ro địa chính trị từ tính chất nguồn mở:</strong> Bản quyền phần mềm mở không phải là một cam kết vĩnh viễn không thay đổi. Các thế hệ mô hình tiếp theo có thể bị nhà phát triển thay đổi giấy phép, hạn chế quyền thương mại hoặc thu hồi quyền truy cập. Việc dựa dẫm thụ động vào một nguồn cung cấp mở duy nhất mà không tự tích lũy năng lực nghiên cứu nền tảng sẽ đẩy quốc gia vào thế bị động.
+        </p>
+      </section>
+
+      <!-- Section: Phần 4 -->
+      <section id="part-4">
+        <h2 class="section-title"><span>V.</span> Hàm Ý Quản Trị Và Định Vị Chiến Lược Cho Việt Nam</h2>
+        
+        <h3 class="subsection-title" id="part-4-1">1. Chiến lược tự chủ phân tầng: Từ bỏ ảo tưởng tự cung tự cấp</h3>
+        <p>
+          Trong một thế giới toàn cầu hóa đan xen, tư duy tự cung tự cấp khép kín đã hoàn toàn lỗi thời. Một quốc gia quy mô trung bình không thể và không nên tìm cách làm chủ tất cả các khâu của chuỗi giá trị công nghệ phức tạp. Việt Nam cần lựa chọn mô hình <strong>tự chủ phân tầng</strong>, trong đó xác định rõ ranh giới giữa những mắt xích cần làm chủ tuyệt đối và những mắt xích cần hội nhập linh hoạt:
+        </p>
+
+        <!-- Diagram: Tiered Autonomy Stack -->
+        <div class="diagram-card">
+          <div class="diagram-header">
+            <span class="diagram-title">Khung Chiến Lược Tự Chủ Phân Tầng Cho Việt Nam</span>
+            <span class="diagram-badge">Khuyến Nghị Quản Trị MBA</span>
+          </div>
+          <div class="tier-stack">
+            <div class="tier-item tier-4">
+              <div class="tier-head">
+                <span class="tier-name">Tầng 4: Ứng Dụng &amp; Dịch Vụ Chuyên Ngành</span>
+                <span class="tier-scope" style="color: #059669">Tự chủ 100% Nội Địa</span>
+              </div>
+              <div class="tier-desc">Xây dựng các giải pháp chuyên sâu phục vụ trực tiếp cho y tế, giáo dục, hành chính công và các doanh nghiệp vừa và nhỏ trong nước.</div>
+            </div>
+            <div class="tier-item tier-3">
+              <div class="tier-head">
+                <span class="tier-name">Tầng 3: Bản Địa Hóa &amp; Căn Chỉnh Đạo Đức</span>
+                <span class="tier-scope" style="color: #2563eb">Kiểm Soát Văn Hóa &amp; Thể Chế</span>
+              </div>
+              <div class="tier-desc">Làm chủ quy trình tinh chỉnh, xây dựng kho ngữ liệu tiếng Việt sạch và giám sát an toàn thông tin theo quy định pháp luật Việt Nam.</div>
+            </div>
+            <div class="tier-item tier-2">
+              <div class="tier-head">
+                <span class="tier-name">Tầng 2: Mô Hình Nền Tảng Cốt Lõi</span>
+                <span class="tier-scope" style="color: #d97706">Hội Nhập &amp; Đa Dạng Hóa Mở</span>
+              </div>
+              <div class="tier-desc">Tiếp nhận có chọn lọc các mô hình mở tiên tiến nhất thế giới (kết hợp DeepSeek, Llama, Mistral) để tránh phụ thuộc vào một thực thể duy nhất.</div>
+            </div>
+            <div class="tier-item tier-1">
+              <div class="tier-head">
+                <span class="tier-name">Tầng 1: Hạ Tầng Vật Lý &amp; Tính Toán</span>
+                <span class="tier-scope" style="color: #dc2626">Liên Minh Đa Phương</span>
+              </div>
+              <div class="tier-desc">Xây dựng các trung tâm dữ liệu trong nước của các nhà mạng viễn thông, kết hợp ngoại giao công nghệ bảo đảm nguồn cung linh kiện.</div>
+            </div>
+          </div>
+        </div>
+
+        <p>
+          Theo mô hình này, quốc gia chấp nhận đứng trên vai người khổng lồ ở tầng mô hình nền tảng bằng cách khai thác nguồn mở toàn cầu, nhưng phải đầu tư nguồn lực vượt trội để làm chủ hoàn toàn tầng dữ liệu bản địa, tầng kiểm soát an toàn và tầng triển khai ứng dụng thực tiễn.
+        </p>
+
+        <h3 class="subsection-title" id="part-4-2">2. Ngoại giao công nghệ và chính sách đa dạng hóa đối tác</h3>
+        <p>
+          Để hóa giải các rủi ro địa chính trị, Việt Nam không thể đặt cược tương lai số của mình vào bất kỳ một nguồn công nghệ đơn lẻ nào. Quốc gia cần theo đuổi chính sách cân bằng động trong ngoại giao công nghệ:
+        </p>
+        <p>
+          <strong>Đa dạng hóa hệ sinh thái mô hình mở:</strong> Bên cạnh các mô hình từ châu Á như DeepSeek, cần chủ động nghiên cứu và làm chủ các mô hình mở tiên tiến từ phương Tây và châu Âu, tạo ra thế kiềng ba chân vững chắc về mặt công nghệ.
+        </p>
+        <p>
+          <strong>Tham gia các liên minh mã nguồn mở quốc tế:</strong> Đóng góp ngược trở lại cho cộng đồng công nghệ thế giới để nâng cao vị thế và tiếng nói của Việt Nam trong việc xây dựng các tiêu chuẩn kỹ thuật và đạo đức trí tuệ nhân tạo toàn cầu.
+        </p>
+
+        <h3 class="subsection-title" id="part-4-3">3. Vai trò nòng cốt của các viện trường và trung tâm ứng dụng trí tuệ nhân tạo</h3>
+        <p>
+          Trong mô hình hợp tác ba nhà gồm Nhà nước, Doanh nghiệp và Viện trường, các trung tâm nghiên cứu và ứng dụng trí tuệ nhân tạo tại các trường đại học giữ vai trò là trạm trung chuyển tri thức và người gác cổng công nghệ cho quốc gia:
+        </p>
+        <p>
+          <strong>Thu thập và bảo tồn tài sản dữ liệu quốc gia:</strong> Dữ liệu tiếng Việt có chất lượng cao chính là nguồn tài nguyên cốt lõi của nền kinh tế số Việt Nam. Các trường đại học cần đi đầu trong việc xây dựng các kho ngữ liệu chuẩn hóa, có bản quyền, giàu tri thức học thuật và lịch sử văn hóa để phục vụ cho việc tinh chỉnh mô hình, ngăn chặn nguy cơ cạn kiệt dữ liệu bản địa sạch.
+        </p>
+        <p>
+          <strong>Đánh giá và kiểm định công nghệ độc lập:</strong> Với vị thế phi lợi nhuận và chuyên môn học thuật, các viện trường là nơi phù hợp nhất để xây dựng các bộ tiêu chuẩn đo lường năng lực của các mô hình trí tuệ nhân tạo khi đưa về Việt Nam, phát hiện và loại bỏ các định kiến hoặc lỗ hổng an ninh tiềm ẩn trước khi công nghệ được ứng dụng đại trà trong xã hội.
+        </p>
+        <p>
+          <strong>Chuyển đổi phương thức đào tạo nhân lực:</strong> Thay vì chỉ đào tạo sinh viên trở thành những người dùng công cụ đơn thuần, các trung tâm đào tạo cần tập trung trang bị năng lực giải mã kiến trúc, tinh chỉnh và quản trị các hệ thống thông minh phức tạp. Đây là yếu tố cốt lõi giúp quốc gia biến tri thức vay mượn từ nước ngoài thành năng lực tự chủ dài hạn của chính mình.
+        </p>
+      </section>
+
+      <!-- Section: Kết Luận -->
+      <section id="conclusion">
+        <h2 class="section-title"><span>VI.</span> Kết Luận</h2>
+        <p class="lead-paragraph">
+          Toàn cầu hóa không biến mất mà đang tái cấu trúc dưới áp lực của cuộc cách mạng trí tuệ nhân tạo và sự trỗi dậy của chủ nghĩa dân tộc công nghệ. Trong trật tự số đầy biến động này, khái niệm chủ quyền công nghệ của một quốc gia đang phát triển cần được tái định nghĩa một cách khoa học và thực tế. Tự chủ không đồng nghĩa với việc tự cô lập mình để sáng tạo lại chiếc bánh xe, mà là năng lực bảo đảm an toàn dữ liệu, làm chủ quyền kiểm soát nhận thức và bảo vệ được lợi ích quốc gia dựa trên sự tiếp thu có chọn lọc những đỉnh cao tri thức của nhân loại.
+        </p>
+        <p>
+          Hiện tượng DeepSeek mở ra một cơ hội lịch sử để Việt Nam rút ngắn khoảng cách công nghệ với các cường quốc. Bằng chiến lược tự chủ phân tầng thực dụng—tiếp nhận mô hình mở toàn cầu, đầu tư xây dựng kho dữ liệu bản địa có chiều sâu và phát huy vai trò cầu nối của các viện nghiên cứu trường đại học—Việt Nam hoàn toàn có thể xây dựng cho mình một nền trí tuệ nhân tạo tự cường, vừa hòa mình vào dòng chảy phát triển của văn minh nhân loại, vừa kiên định giữ vững chủ quyền số và bản sắc dân tộc trong kỷ nguyên mới.
+        </p>
+      </section>
+
+      <!-- Section: Tài Liệu Tham Khảo -->
+      <section id="references">
+        <h2 class="section-title"><span>VII.</span> Tài Liệu Tham Khảo</h2>
+        <ol class="reference-list">
+          <li><strong>Ghemawat, P. (2001).</strong> <em>Distance Still Matters: The Hard Reality of Global Expansion.</em> Harvard Business Review, 79(8), 137-147.</li>
+          <li><strong>Gerschenkron, A. (1962).</strong> <em>Economic Backwardness in Historical Perspective: A Book of Essays.</em> Belknap Press of Harvard University Press.</li>
+          <li><strong>Wallerstein, I. (2004).</strong> <em>World-Systems Analysis: An Introduction.</em> Duke University Press.</li>
+          <li><strong>Etzkowitz, H., &amp; Leydesdorff, L. (2000).</strong> <em>The Dynamics of Innovation: From National Systems and "Mode 2" to a Triple Helix of University-Industry-Government Relations.</em> Research Policy, 29(2), 109-123.</li>
+          <li><strong>DeepSeek-AI (2025).</strong> <em>DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning.</em> Technical Report.</li>
+          <li><strong>OECD (2024).</strong> <em>OECD Framework for the Classification of AI Systems.</em> OECD Digital Economy Papers, No. 323, OECD Publishing, Paris.</li>
+        </ol>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Floating Scroll-To-Top Button -->
+  <button id="back-to-top" title="Lên đầu trang">&#8593;</button>
+
+  <script>
+    // Reading Progress Indicator
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('progress-bar').style.width = scrolled + '%';
+
+      // Back to Top button visibility
+      const btnTop = document.getElementById('back-to-top');
+      if (winScroll > 400) {
+        btnTop.style.display = 'flex';
+      } else {
+        btnTop.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Theme Toggle (Light / Dark)
+    const btnTheme = document.getElementById('btn-theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    let currentTheme = localStorage.getItem('theme') || 'light';
+
+    function applyTheme(theme) {
+      if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeIcon.innerHTML = '&#9788;';
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        themeIcon.innerHTML = '&#9790;';
+      }
+      localStorage.setItem('theme', theme);
+    }
+    applyTheme(currentTheme);
+
+    btnTheme.addEventListener('click', () => {
+      currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+      applyTheme(currentTheme);
+    });
+
+    // Font Size Toggle
+    const btnFont = document.getElementById('btn-font-toggle');
+    let fontSizes = ['16px', '17px', '18.5px'];
+    let currentFontIdx = 1;
+
+    btnFont.addEventListener('click', () => {
+      currentFontIdx = (currentFontIdx + 1) % fontSizes.length;
+      document.documentElement.style.setProperty('--font-size-base', fontSizes[currentFontIdx]);
+    });
+
+    // Active TOC link highlighting
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.toc-link');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 120;
+        if (window.pageYOffset >= sectionTop) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
