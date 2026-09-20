@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chiến Lược Trí Tuệ Nhân Tạo Có Chủ Quyền Trong Trật Tự Toàn Cầu Mới | Chuyên Đề MBA</title>
-  <meta name="description" content="Chuyên đề Thạc sĩ Quản trị Kinh doanh (MBA) môn Toàn cầu hóa: Chiến lược Trí tuệ nhân tạo có chủ quyền từ mô hình mã nguồn mở DeepSeek và vị thế của Việt Nam.">
+  <title>Chiến Lược Trí Tuệ Nhân Tạo Có Chủ Quyền Trong Trật Tự Toàn Cầu Mới | Chuyên Đề MBA - ĐH Thành Đông</title>
+  <meta name="description" content="Chuyên đề Thạc sĩ Quản trị Kinh doanh (MBA) môn Toàn cầu hóa: Chiến lược Trí tuệ nhân tạo có chủ quyền từ mô hình mã nguồn mở DeepSeek và vị thế của Việt Nam. Trường Đại học Thành Đông.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+  <!-- Chart.js CDN for dynamic charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     :root {
       --primary: #0a2540;
@@ -16,6 +18,7 @@
       --accent: #b45309;
       --accent-light: #fef3c7;
       --accent-blue: #2563eb;
+      --accent-green: #059669;
       --bg: #f8fafc;
       --surface: #ffffff;
       --text-main: #1e293b;
@@ -37,6 +40,7 @@
       --accent: #f59e0b;
       --accent-light: rgba(245, 158, 11, 0.15);
       --accent-blue: #60a5fa;
+      --accent-green: #34d399;
       --bg: #0b1120;
       --surface: #131d31;
       --text-main: #f1f5f9;
@@ -108,7 +112,7 @@
       text-decoration: none;
       color: var(--text-main);
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       letter-spacing: -0.01em;
     }
 
@@ -171,7 +175,7 @@
     }
 
     .toc-title {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       font-weight: 800;
@@ -303,6 +307,46 @@
       color: var(--text-main);
     }
 
+    /* Stat Cards Row */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin: 28px 0;
+    }
+
+    .stat-card {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 16px;
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-number {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--accent-blue);
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+    .stat-card:nth-child(2) .stat-number { color: var(--accent-green); }
+    .stat-card:nth-child(3) .stat-number { color: var(--accent); }
+    .stat-card:nth-child(4) .stat-number { color: #8b5cf6; }
+
+    .stat-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+
     /* Typography & Sections */
     h2.section-title {
       font-size: 1.55rem;
@@ -343,35 +387,37 @@
       color: var(--text-main);
     }
 
-    /* Infographic & Diagram Cards */
-    .diagram-card {
+    /* Diagram / Illustration Card */
+    .illustration-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-left: 5px solid var(--accent-blue);
       border-radius: 14px;
       padding: 24px;
       margin: 32px 0;
       box-shadow: var(--shadow-sm);
     }
 
-    .diagram-header {
+    .illustration-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
       padding-bottom: 12px;
       border-bottom: 1px solid var(--border);
     }
 
-    .diagram-title {
+    .illustration-title {
       font-size: 0.95rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--accent-blue);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .diagram-badge {
+    .illustration-badge {
       font-size: 0.72rem;
       background: var(--tag-bg);
       border: 1px solid var(--border);
@@ -379,6 +425,30 @@
       border-radius: 4px;
       font-weight: 600;
       color: var(--text-muted);
+    }
+
+    .illustration-caption {
+      margin-top: 14px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* Chart Container */
+    .chart-box {
+      position: relative;
+      width: 100%;
+      height: 320px;
+      margin: 10px 0;
+    }
+
+    /* SVG Infographics */
+    .svg-diagram {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
     }
 
     /* Comparison Table */
@@ -434,6 +504,11 @@
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 20px;
+      transition: all 0.2s ease;
+    }
+    .framework-box:hover {
+      border-color: var(--border-focus);
+      transform: translateY(-2px);
     }
 
     .framework-box-title {
@@ -574,7 +649,16 @@
       .main-title {
         font-size: 1.75rem;
       }
+      .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
       .framework-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .stats-row {
         grid-template-columns: 1fr;
       }
     }
@@ -604,7 +688,7 @@
       h2.section-title {
         page-break-before: always;
       }
-      .custom-table, .diagram-card, .tier-stack {
+      .custom-table, .illustration-card, .tier-stack {
         page-break-inside: avoid;
       }
     }
@@ -618,8 +702,8 @@
   <header class="top-navbar">
     <div class="nav-container">
       <a href="#" class="nav-brand">
-        <img src="tdu-logo.png" alt="TDU AI Center Logo" onerror="this.style.display='none'">
-        <span>TDU AI Center &bull; MBA Research</span>
+        <img src="tdu-logo.png" alt="Logo Trường ĐH Thành Đông" onerror="this.style.display='none'">
+        <span>Trung tâm Ứng dụng AI &bull; ĐH Thành Đông</span>
       </a>
       <div class="nav-actions">
         <button class="btn-action" id="btn-font-toggle" title="Thay đổi cỡ chữ">
@@ -673,7 +757,7 @@
             <div class="toc-sub">
               <a href="#part-4-1" class="toc-link">Chiến lược tự chủ phân tầng</a>
               <a href="#part-4-2" class="toc-link">Ngoại giao công nghệ</a>
-              <a href="#part-4-3" class="toc-link">Vai trò Viện - Trường</a>
+              <a href="#part-4-3" class="toc-link">Vai trò ĐH Thành Đông</a>
             </div>
           </li>
           <li><a href="#conclusion" class="toc-link">Kết Luận</a></li>
@@ -698,7 +782,7 @@
           </div>
           <div class="meta-item">
             <span class="meta-label">Cơ sở đào tạo</span>
-            <span class="meta-value">Trường Đại học Tây Đô (TDU)</span>
+            <span class="meta-value">Trường Đại học Thành Đông</span>
           </div>
           <div class="meta-item">
             <span class="meta-label">Học phần</span>
@@ -707,6 +791,26 @@
           <div class="meta-item">
             <span class="meta-label">Giảng viên hướng dẫn</span>
             <span class="meta-value">TS. Trần Thị Thanh Hồng</span>
+          </div>
+        </div>
+
+        <!-- Key Metrics Summary Row -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-number">99.5%</div>
+            <div class="stat-label">Tiết kiệm chi phí so với tự làm</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Chủ quyền dữ liệu nội địa</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">4 Tầng</div>
+            <div class="stat-label">Khung chiến lược tự chủ</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">3 Nhà</div>
+            <div class="stat-label">Mô hình liên minh Ba xoắn ốc</div>
           </div>
         </div>
       </header>
@@ -723,6 +827,74 @@
         <p>
           Sự xuất hiện của hiện tượng DeepSeek với chiến lược công bố trọng số mở đã tạo ra một biến số bất ngờ, làm rung chuyển cấu trúc độc quyền công nghệ thế giới. Sự kiện này mở ra một câu hỏi mang tính chiến lược cho các nhà quản trị và các nhà hoạch định chính sách: <em>Liệu việc tiếp nhận và tinh chỉnh các mô hình mã nguồn mở tiên tiến có thể trở thành con đường giúp Việt Nam đạt được quyền tự chủ thực chất trong lĩnh vực trí tuệ nhân tạo hay không?</em> Chuyên đề này phân tích bài toán tự chủ công nghệ của Việt Nam từ lăng kính toàn cầu hóa, thông qua việc nghiên cứu hiện tượng DeepSeek, nhằm đề xuất một lộ trình chiến lược thực tế và bền vững cho quốc gia.
         </p>
+
+        <!-- Illustration: Sơ đồ dòng chảy địa chính trị -->
+        <div class="illustration-card">
+          <div class="illustration-header">
+            <span class="illustration-title">
+              <span>&#127760;</span> Sơ Đồ 1: Chuỗi Giá Trị Bán Dẫn &amp; Địa Chính Trị AI Toàn Cầu
+            </span>
+            <span class="illustration-badge">Địa Kinh Tế Số</span>
+          </div>
+          <svg class="svg-diagram" viewBox="0 0 850 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="grad-us" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#1e3a8a"/>
+                <stop offset="100%" stop-color="#3b82f6"/>
+              </linearGradient>
+              <linearGradient id="grad-nl" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#b45309"/>
+                <stop offset="100%" stop-color="#f59e0b"/>
+              </linearGradient>
+              <linearGradient id="grad-tw" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#065f46"/>
+                <stop offset="100%" stop-color="#10b981"/>
+              </linearGradient>
+              <linearGradient id="grad-vn" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#831843"/>
+                <stop offset="100%" stop-color="#ec4899"/>
+              </linearGradient>
+            </defs>
+            <!-- Step 1 -->
+            <rect x="15" y="45" width="175" height="110" rx="12" fill="url(#grad-us)" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.1))"/>
+            <text x="102" y="80" fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle">1. THIẾT KẾ &amp; IP</text>
+            <text x="102" y="105" fill="#e0e7ff" font-size="11" text-anchor="middle">Hoa Kỳ (NVIDIA, AMD)</text>
+            <text x="102" y="125" fill="#c7d2fe" font-size="10" text-anchor="middle">Kiểm soát xuất khẩu</text>
+            
+            <!-- Arrow 1 -->
+            <path d="M 195 100 L 225 100" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrow)"/>
+            <polygon points="225,95 235,100 225,105" fill="#94a3b8"/>
+
+            <!-- Step 2 -->
+            <rect x="235" y="45" width="175" height="110" rx="12" fill="url(#grad-nl)" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.1))"/>
+            <text x="322" y="80" fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle">2. QUANG KHẮC</text>
+            <text x="322" y="105" fill="#fef3c7" font-size="11" text-anchor="middle">Hà Lan (ASML EUV)</text>
+            <text x="322" y="125" fill="#fde68a" font-size="10" text-anchor="middle">Độc quyền thiết bị</text>
+
+            <!-- Arrow 2 -->
+            <path d="M 415 100 L 445 100" stroke="#94a3b8" stroke-width="3"/>
+            <polygon points="445,95 455,100 445,105" fill="#94a3b8"/>
+
+            <!-- Step 3 -->
+            <rect x="455" y="45" width="175" height="110" rx="12" fill="url(#grad-tw)" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.1))"/>
+            <text x="542" y="80" fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle">3. ĐÚC CHIP TIÊN TIẾN</text>
+            <text x="542" y="105" fill="#ecfdf5" font-size="11" text-anchor="middle">Đài Loan (TSMC 3nm-2nm)</text>
+            <text x="542" y="125" fill="#a7f3d0" font-size="10" text-anchor="middle">Nút thắt sản xuất vật lý</text>
+
+            <!-- Arrow 3 -->
+            <path d="M 635 100 L 665 100" stroke="#94a3b8" stroke-width="3"/>
+            <polygon points="665,95 675,100 665,105" fill="#94a3b8"/>
+
+            <!-- Step 4 -->
+            <rect x="675" y="45" width="160" height="110" rx="12" fill="url(#grad-vn)" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.1))"/>
+            <text x="755" y="80" fill="#ffffff" font-size="13" font-weight="700" text-anchor="middle">4. VIỆT NAM</text>
+            <text x="755" y="105" fill="#fce7f3" font-size="11" text-anchor="middle">Tinh Chỉnh &amp; Dữ Liệu</text>
+            <text x="755" y="125" fill="#fbcfe8" font-size="10" text-anchor="middle">Chủ quyền phân tầng</text>
+          </svg>
+          <div class="illustration-caption">
+            Minh họa tính tập trung cao độ của chuỗi cung ứng vật lý toàn cầu và vị trí tiếp nhận chiến lược của Việt Nam.
+          </div>
+        </div>
       </section>
 
       <!-- Section: Phần 1 -->
@@ -742,35 +914,38 @@
           Theo lý thuyết hệ thống thế giới của Immanuel Wallerstein, trật tự kinh tế toàn cầu luôn được phân cấp thành các khu vực trung tâm và khu vực ngoại vi. Khi áp dụng vào chuỗi giá trị toàn cầu của ngành trí tuệ nhân tạo, cấu trúc phân tầng này thể hiện vô cùng sắc nét:
         </p>
         
-        <!-- Diagram: GVC AI -->
-        <div class="diagram-card">
-          <div class="diagram-header">
-            <span class="diagram-title">Mô hình phân tầng chuỗi giá trị trí tuệ nhân tạo toàn cầu</span>
-            <span class="diagram-badge">Lý thuyết Wallerstein</span>
+        <!-- Illustration: Sơ đồ Wallerstein phân tầng -->
+        <div class="illustration-card">
+          <div class="illustration-header">
+            <span class="illustration-title">
+              <span>&#9878;</span> Sơ Đồ 2: Cấu Trúc Trung Tâm - Ngoại Vi Trong Chuỗi Giá Trị Trí Tuệ Nhân Tạo
+            </span>
+            <span class="illustration-badge">Lý Thuyết Wallerstein</span>
           </div>
-          <div class="tier-stack">
-            <div class="tier-item tier-1">
-              <div class="tier-head">
-                <span class="tier-name">Nhóm Trung Tâm (Hoa Kỳ, Trung Quốc)</span>
-                <span class="tier-scope">Kiểm soát giá trị cốt lõi</span>
-              </div>
-              <div class="tier-desc">Sở hữu bản quyền kiến trúc mô hình nền tảng, thiết kế chip bán dẫn tiên tiến và vận hành mạng lưới trung tâm dữ liệu khổng lồ.</div>
-            </div>
-            <div class="tier-item tier-2">
-              <div class="tier-head">
-                <span class="tier-name">Nhóm Bán Ngoại Vi (Châu Âu, Nhật Bản, các nước vùng Vịnh)</span>
-                <span class="tier-scope">Điều tiết &amp; Đầu tư lớn</span>
-              </div>
-              <div class="tier-desc">Thiết lập các khung khổ thể chế quản trị an toàn số, đầu tư mạnh vào mô hình bản địa và sở hữu hạ tầng đám mây khu vực.</div>
-            </div>
-            <div class="tier-item tier-3">
-              <div class="tier-head">
-                <span class="tier-name">Nhóm Ngoại Vi (Các nền kinh tế đang phát triển, bao gồm Việt Nam)</span>
-                <span class="tier-scope">Tiêu thụ &amp; Gia công</span>
-              </div>
-              <div class="tier-desc">Chủ yếu đóng vai trò cung cấp dữ liệu thô, lao động gắn nhãn giá rẻ và thị trường tiêu thụ các dịch vụ phần mềm đã đóng gói sẵn.</div>
-            </div>
-          </div>
+          <svg class="svg-diagram" viewBox="0 0 800 240" xmlns="http://www.w3.org/2000/svg">
+            <!-- Core Box -->
+            <rect x="50" y="20" width="700" height="60" rx="10" fill="#1e3a8a" opacity="0.95"/>
+            <text x="70" y="45" fill="#ffffff" font-size="14" font-weight="700">KHU VỰC TRUNG TÂM (CORE): HOA KỲ &bull; TRUNG QUỐC</text>
+            <text x="70" y="65" fill="#bfdbfe" font-size="12">Sở hữu bản quyền thuật toán nền tảng, độc quyền thiết kế vi xử lý GPU và các cụm siêu máy tính ngốn hàng tỷ USD.</text>
+
+            <!-- Down Arrow -->
+            <polygon points="400,85 390,95 410,95" fill="#64748b"/>
+            <line x1="400" y1="80" x2="400" y2="90" stroke="#64748b" stroke-width="2"/>
+
+            <!-- Semi-Periphery Box -->
+            <rect x="100" y="100" width="600" height="55" rx="10" fill="#047857" opacity="0.9"/>
+            <text x="120" y="125" fill="#ffffff" font-size="13" font-weight="700">KHU VỰC BÁN NGOẠI VI (SEMI-PERIPHERY): CHÂU ÂU &bull; NHẬT BẢN &bull; VÙNG VỊNH</text>
+            <text x="120" y="143" fill="#a7f3d0" font-size="11">Ban hành đạo luật quản trị an toàn số, tài trợ phát triển mô hình mở bản sắc khu vực và hạ tầng lưu trữ.</text>
+
+            <!-- Down Arrow -->
+            <polygon points="400,160 390,170 410,170" fill="#64748b"/>
+            <line x1="400" y1="155" x2="400" y2="165" stroke="#64748b" stroke-width="2"/>
+
+            <!-- Periphery Box -->
+            <rect x="150" y="175" width="500" height="55" rx="10" fill="#b45309" opacity="0.9"/>
+            <text x="170" y="198" fill="#ffffff" font-size="13" font-weight="700">KHU VỰC NGOẠI VI (PERIPHERY): CÁC NƯỚC ĐANG PHÁT TRIỂN (VIỆT NAM)</text>
+            <text x="170" y="217" fill="#fef3c7" font-size="11">Nguy cơ lệ thuộc: Nguồn cung cấp dữ liệu thô, gia công dán nhãn giá rẻ và thị trường tiêu thụ dịch vụ nước ngoài.</text>
+          </svg>
         </div>
 
         <p>
@@ -802,6 +977,23 @@
         <p>
           Trong bối cảnh chịu sức ép nặng nề từ các lệnh hạn chế phần cứng, sự xuất hiện của DeepSeek đã tạo ra một bước ngoặt địa chính trị công nghệ sâu sắc. Bằng cách tối ưu hóa triệt để kiến trúc thuật toán, DeepSeek chứng minh rằng một thực thể công nghệ có thể đạt được năng lực tính toán và suy luận tương đương các mô hình hàng đầu thế giới với chi phí huấn luyện chỉ bằng một phần rất nhỏ, đồng thời vận hành trên các hệ thống phần cứng không phải là tối tân nhất.
         </p>
+
+        <!-- Dynamic Chart: So sánh chi phí huấn luyện & tinh chỉnh -->
+        <div class="illustration-card">
+          <div class="illustration-header">
+            <span class="illustration-title">
+              <span>&#128202;</span> Biểu Đồ 1: So Sánh Chi Phí Kinh Tế: Tự Làm Từ Đầu vs. Tinh Chỉnh Mô Hình Mở
+            </span>
+            <span class="illustration-badge">Ước Tính USD</span>
+          </div>
+          <div class="chart-box">
+            <canvas id="costComparisonChart"></canvas>
+          </div>
+          <div class="illustration-caption">
+            Nguồn tổng hợp: Báo cáo kỹ thuật của các hãng công nghệ và ước tính chi phí huấn luyện thực tế tại Việt Nam (Đơn vị: Triệu USD).
+          </div>
+        </div>
+
         <p>
           Quan trọng hơn từ góc độ toàn cầu hóa, việc DeepSeek công bố mở toàn bộ trọng số mô hình cùng các báo cáo kỹ thuật minh bạch đã biến tri thức độc quyền trở thành một dạng hàng hóa công toàn cầu. Động thái này làm suy giảm đáng kể sức mạnh độc quyền của các tập đoàn công nghệ phương Tây, đồng thời mở toang cánh cửa tiếp cận công nghệ cao cho các quốc gia có nguồn lực kinh tế hạn chế.
         </p>
@@ -943,42 +1135,35 @@
           Trong một thế giới toàn cầu hóa đan xen, tư duy tự cung tự cấp khép kín đã hoàn toàn lỗi thời. Một quốc gia quy mô trung bình không thể và không nên tìm cách làm chủ tất cả các khâu của chuỗi giá trị công nghệ phức tạp. Việt Nam cần lựa chọn mô hình <strong>tự chủ phân tầng</strong>, trong đó xác định rõ ranh giới giữa những mắt xích cần làm chủ tuyệt đối và những mắt xích cần hội nhập linh hoạt:
         </p>
 
-        <!-- Diagram: Tiered Autonomy Stack -->
-        <div class="diagram-card">
-          <div class="diagram-header">
-            <span class="diagram-title">Khung Chiến Lược Tự Chủ Phân Tầng Cho Việt Nam</span>
-            <span class="diagram-badge">Khuyến Nghị Quản Trị MBA</span>
+        <!-- Illustration: Sơ đồ Tháp Tự Chủ Phân Tầng -->
+        <div class="illustration-card">
+          <div class="illustration-header">
+            <span class="illustration-title">
+              <span>&#128394;</span> Sơ Đồ 3: Tháp Chiến Lược Tự Chủ Phân Tầng Cho Việt Nam
+            </span>
+            <span class="illustration-badge">Khung Quản Trị Đề Xuất</span>
           </div>
-          <div class="tier-stack">
-            <div class="tier-item tier-4">
-              <div class="tier-head">
-                <span class="tier-name">Tầng 4: Ứng Dụng &amp; Dịch Vụ Chuyên Ngành</span>
-                <span class="tier-scope" style="color: #059669">Tự chủ 100% Nội Địa</span>
-              </div>
-              <div class="tier-desc">Xây dựng các giải pháp chuyên sâu phục vụ trực tiếp cho y tế, giáo dục, hành chính công và các doanh nghiệp vừa và nhỏ trong nước.</div>
-            </div>
-            <div class="tier-item tier-3">
-              <div class="tier-head">
-                <span class="tier-name">Tầng 3: Bản Địa Hóa &amp; Căn Chỉnh Đạo Đức</span>
-                <span class="tier-scope" style="color: #2563eb">Kiểm Soát Văn Hóa &amp; Thể Chế</span>
-              </div>
-              <div class="tier-desc">Làm chủ quy trình tinh chỉnh, xây dựng kho ngữ liệu tiếng Việt sạch và giám sát an toàn thông tin theo quy định pháp luật Việt Nam.</div>
-            </div>
-            <div class="tier-item tier-2">
-              <div class="tier-head">
-                <span class="tier-name">Tầng 2: Mô Hình Nền Tảng Cốt Lõi</span>
-                <span class="tier-scope" style="color: #d97706">Hội Nhập &amp; Đa Dạng Hóa Mở</span>
-              </div>
-              <div class="tier-desc">Tiếp nhận có chọn lọc các mô hình mở tiên tiến nhất thế giới (kết hợp DeepSeek, Llama, Mistral) để tránh phụ thuộc vào một thực thể duy nhất.</div>
-            </div>
-            <div class="tier-item tier-1">
-              <div class="tier-head">
-                <span class="tier-name">Tầng 1: Hạ Tầng Vật Lý &amp; Tính Toán</span>
-                <span class="tier-scope" style="color: #dc2626">Liên Minh Đa Phương</span>
-              </div>
-              <div class="tier-desc">Xây dựng các trung tâm dữ liệu trong nước của các nhà mạng viễn thông, kết hợp ngoại giao công nghệ bảo đảm nguồn cung linh kiện.</div>
-            </div>
-          </div>
+          <svg class="svg-diagram" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+            <!-- Tier 4: Top of Pyramid -->
+            <polygon points="400,20 280,85 520,85" fill="#10b981" opacity="0.95"/>
+            <text x="400" y="55" fill="#ffffff" font-size="13" font-weight="800" text-anchor="middle">TẦNG 4: ỨNG DỤNG NỘI ĐỊA</text>
+            <text x="400" y="75" fill="#ecfdf5" font-size="11" text-anchor="middle">Tự chủ 100% (Y tế, Giáo dục, Hành chính công)</text>
+
+            <!-- Tier 3 -->
+            <polygon points="275,90 525,90 585,155 215,155" fill="#3b82f6" opacity="0.95"/>
+            <text x="400" y="120" fill="#ffffff" font-size="13" font-weight="800" text-anchor="middle">TẦNG 3: BẢN ĐỊA HÓA &amp; ĐẠO ĐỨC</text>
+            <text x="400" y="140" fill="#eff6ff" font-size="11" text-anchor="middle">Làm chủ kho dữ liệu tiếng Việt &amp; Căn chỉnh chuẩn mực bản sắc</text>
+
+            <!-- Tier 2 -->
+            <polygon points="210,160 590,160 655,225 145,225" fill="#f59e0b" opacity="0.95"/>
+            <text x="400" y="190" fill="#ffffff" font-size="13" font-weight="800" text-anchor="middle">TẦNG 2: MÔ HÌNH NỀN TẢNG CỐT LÕI</text>
+            <text x="400" y="210" fill="#fffbeb" font-size="11" text-anchor="middle">Kế thừa có chọn lọc nguồn mở toàn cầu (DeepSeek, Llama, Mistral)</text>
+
+            <!-- Tier 1: Base -->
+            <polygon points="140,230 660,230 730,295 70,295" fill="#ef4444" opacity="0.95"/>
+            <text x="400" y="260" fill="#ffffff" font-size="13" font-weight="800" text-anchor="middle">TẦNG 1: HẠ TẦNG TÍNH TOÁN &amp; BÁN DẪN</text>
+            <text x="400" y="280" fill="#fef2f2" font-size="11" text-anchor="middle">Ngoại giao công nghệ bảo đảm chuỗi cung ứng &amp; Đám mây nội địa</text>
+          </svg>
         </div>
 
         <p>
@@ -996,10 +1181,45 @@
           <strong>Tham gia các liên minh mã nguồn mở quốc tế:</strong> Đóng góp ngược trở lại cho cộng đồng công nghệ thế giới để nâng cao vị thế và tiếng nói của Việt Nam trong việc xây dựng các tiêu chuẩn kỹ thuật và đạo đức trí tuệ nhân tạo toàn cầu.
         </p>
 
-        <h3 class="subsection-title" id="part-4-3">3. Vai trò nòng cốt của các viện trường và trung tâm ứng dụng trí tuệ nhân tạo</h3>
+        <h3 class="subsection-title" id="part-4-3">3. Vai trò nòng cốt của Trường Đại học Thành Đông và các trung tâm nghiên cứu</h3>
         <p>
-          Trong mô hình hợp tác ba nhà gồm Nhà nước, Doanh nghiệp và Viện trường, các trung tâm nghiên cứu và ứng dụng trí tuệ nhân tạo tại các trường đại học giữ vai trò là trạm trung chuyển tri thức và người gác cổng công nghệ cho quốc gia:
+          Trong mô hình hợp tác ba nhà gồm Nhà nước, Doanh nghiệp và Viện trường (Mô hình Ba xoắn ốc - Triple Helix), các trung tâm nghiên cứu và ứng dụng trí tuệ nhân tạo tại các trường đại học, tiêu biểu như <strong>Trường Đại học Thành Đông</strong>, giữ vai trò là trạm trung chuyển tri thức và người gác cổng công nghệ cho quốc gia:
         </p>
+
+        <!-- Illustration: Triple Helix Venn Diagram -->
+        <div class="illustration-card">
+          <div class="illustration-header">
+            <span class="illustration-title">
+              <span>&#9881;</span> Sơ Đồ 4: Mô Hình Ba Xoắn Ốc (Triple Helix) Tại Trường ĐH Thành Đông
+            </span>
+            <span class="illustration-badge">Hệ Sinh Thái Đổi Mới Sáng Tạo</span>
+          </div>
+          <svg class="svg-diagram" viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg">
+            <!-- Circle 1: Nhà nước -->
+            <circle cx="300" cy="110" r="95" fill="#3b82f6" opacity="0.3" stroke="#2563eb" stroke-width="2"/>
+            <text x="250" y="80" fill="#1e3a8a" font-size="13" font-weight="800">NHÀ NƯỚC</text>
+            <text x="250" y="100" fill="#334155" font-size="10">Chính sách &amp; Khung thể chế</text>
+
+            <!-- Circle 2: Viện Trường -->
+            <circle cx="500" cy="110" r="95" fill="#10b981" opacity="0.3" stroke="#059669" stroke-width="2"/>
+            <text x="510" y="80" fill="#065f46" font-size="13" font-weight="800">VIỆN - TRƯỜNG ĐH</text>
+            <text x="510" y="100" fill="#334155" font-size="10">Nghiên cứu &amp; Đào tạo nhân lực</text>
+
+            <!-- Circle 3: Doanh nghiệp -->
+            <circle cx="400" cy="190" r="95" fill="#f59e0b" opacity="0.3" stroke="#d97706" stroke-width="2"/>
+            <text x="400" y="240" fill="#78350f" font-size="13" font-weight="800" text-anchor="middle">DOANH NGHIỆP</text>
+            <text x="400" y="258" fill="#334155" font-size="10" text-anchor="middle">Thương mại hóa &amp; Thực tiễn</text>
+
+            <!-- Center Intersection -->
+            <circle cx="400" cy="140" r="38" fill="#b45309" opacity="0.85"/>
+            <text x="400" y="135" fill="#ffffff" font-size="10" font-weight="800" text-anchor="middle">TRUNG TÂM AI</text>
+            <text x="400" y="148" fill="#fef3c7" font-size="9" font-weight="700" text-anchor="middle">ĐH THÀNH ĐÔNG</text>
+          </svg>
+          <div class="illustration-caption">
+            Trung tâm Ứng dụng AI Trường ĐH Thành Đông đóng vai trò điểm giao thoa kết nối chính sách, nghiên cứu bản địa và nhu cầu doanh nghiệp.
+          </div>
+        </div>
+
         <p>
           <strong>Thu thập và bảo tồn tài sản dữ liệu quốc gia:</strong> Dữ liệu tiếng Việt có chất lượng cao chính là nguồn tài nguyên cốt lõi của nền kinh tế số Việt Nam. Các trường đại học cần đi đầu trong việc xây dựng các kho ngữ liệu chuẩn hóa, có bản quyền, giàu tri thức học thuật và lịch sử văn hóa để phục vụ cho việc tinh chỉnh mô hình, ngăn chặn nguy cơ cạn kiệt dữ liệu bản địa sạch.
         </p>
@@ -1018,7 +1238,7 @@
           Toàn cầu hóa không biến mất mà đang tái cấu trúc dưới áp lực của cuộc cách mạng trí tuệ nhân tạo và sự trỗi dậy của chủ nghĩa dân tộc công nghệ. Trong trật tự số đầy biến động này, khái niệm chủ quyền công nghệ của một quốc gia đang phát triển cần được tái định nghĩa một cách khoa học và thực tế. Tự chủ không đồng nghĩa với việc tự cô lập mình để sáng tạo lại chiếc bánh xe, mà là năng lực bảo đảm an toàn dữ liệu, làm chủ quyền kiểm soát nhận thức và bảo vệ được lợi ích quốc gia dựa trên sự tiếp thu có chọn lọc những đỉnh cao tri thức của nhân loại.
         </p>
         <p>
-          Hiện tượng DeepSeek mở ra một cơ hội lịch sử để Việt Nam rút ngắn khoảng cách công nghệ với các cường quốc. Bằng chiến lược tự chủ phân tầng thực dụng—tiếp nhận mô hình mở toàn cầu, đầu tư xây dựng kho dữ liệu bản địa có chiều sâu và phát huy vai trò cầu nối của các viện nghiên cứu trường đại học—Việt Nam hoàn toàn có thể xây dựng cho mình một nền trí tuệ nhân tạo tự cường, vừa hòa mình vào dòng chảy phát triển của văn minh nhân loại, vừa kiên định giữ vững chủ quyền số và bản sắc dân tộc trong kỷ nguyên mới.
+          Hiện tượng DeepSeek mở ra một cơ hội lịch sử để Việt Nam rút ngắn khoảng cách công nghệ với các cường quốc. Bằng chiến lược tự chủ phân tầng thực dụng—tiếp nhận mô hình mở toàn cầu, đầu tư xây dựng kho dữ liệu bản địa có chiều sâu và phát huy vai trò cầu nối của các viện nghiên cứu tại <strong>Trường Đại học Thành Đông</strong>—Việt Nam hoàn toàn có thể xây dựng cho mình một nền trí tuệ nhân tạo tự cường, vừa hòa mình vào dòng chảy phát triển của văn minh nhân loại, vừa kiên định giữ vững chủ quyền số và bản sắc dân tộc trong kỷ nguyên mới.
         </p>
       </section>
 
@@ -1042,6 +1262,74 @@
   <button id="back-to-top" title="Lên đầu trang">&#8593;</button>
 
   <script>
+    // Initialize Cost Comparison Chart via Chart.js
+    window.addEventListener('DOMContentLoaded', () => {
+      const ctx = document.getElementById('costComparisonChart');
+      if (ctx) {
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: [
+              'Huấn luyện mô hình đóng (GPT-4 / Claude 3.5)',
+              'Huấn luyện mô hình mở từ đầu (DeepSeek-V3)',
+              'Mô hình tự xây quy mô vừa tại VN',
+              'Chi phí Tinh chỉnh mô hình mở (Việt Nam)'
+            ],
+            datasets: [{
+              label: 'Chi phí ước tính (Triệu USD)',
+              data: [100.0, 5.9, 2.5, 0.04],
+              backgroundColor: [
+                'rgba(239, 68, 68, 0.85)',
+                'rgba(245, 158, 11, 0.85)',
+                'rgba(59, 130, 246, 0.85)',
+                'rgba(16, 185, 129, 0.9)'
+              ],
+              borderColor: [
+                '#dc2626',
+                '#d97706',
+                '#2563eb',
+                '#059669'
+              ],
+              borderWidth: 1.5,
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    if (context.raw < 1) {
+                      return ' Chi phí: ~' + (context.raw * 1000).toFixed(0) + ' nghìn USD (Tiết kiệm > 99%)';
+                    }
+                    return ' Chi phí: ~' + context.raw + ' triệu USD';
+                  }
+                }
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: 'Chi phí (Triệu USD - Thang logarit tương đối)'
+                },
+                grid: {
+                  color: 'rgba(148, 163, 184, 0.15)'
+                }
+              },
+              x: {
+                grid: { display: false }
+              }
+            }
+          }
+        });
+      }
+    });
+
     // Reading Progress Indicator
     window.addEventListener('scroll', () => {
       const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
